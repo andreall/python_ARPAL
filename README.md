@@ -58,4 +58,6 @@ Martina Raffellini - martina.raffellini@arpal.liguria.it
 
 Federico Cassola - federico.cassola@arpal.liguria.it
 
+Edoardo Rocca - edoardo.rocca@arpal.liguria.it
+
 
