@@ -56,4 +56,3 @@ Andrea Lira Loarca - andrea.lira.loarca@unige.it
 Martina Raffellini - martina.raffellini@arpal.liguria.it
 
 Luca Miscioscia - lumis98@gmail.com
-
