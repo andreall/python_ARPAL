@@ -51,8 +51,12 @@ Participants:
 
 Andrea Lira Loarca - andrea.lira.loarca@unige.it
 
+Patrizia De Gaetano - patrizia.de_gaetano@arpal.liguria.it
+
+
 Laura Pedemonte - laura.pedemonte@arpal.liguria.it
 Martina Raffellini - martina.raffellini@arpal.liguria.it
 
 Federico Cassola - federico.cassola@arpal.liguria.it
+
 
