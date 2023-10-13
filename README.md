@@ -47,7 +47,6 @@ Venerdì 27 ottobre 2023 | 09:00-13:00
 - Lettura, scrittura ed elaborazioni dati di monitoraggio secondo D.lgs 152/06 e D.lgs n.190/2010 (Decreto Strategia Marina) 
 
 
-Participants:
 
 Andrea Lira Loarca - andrea.lira.loarca@unige.it
 
