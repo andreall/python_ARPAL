@@ -50,6 +50,9 @@ Venerdì 27 ottobre 2023 | 09:00-13:00
 
 Andrea Lira Loarca - andrea.lira.loarca@unige.it
 
+
+Dario Hourngir - dario.hourngir@arpal.liguria.it
+
 Patrizia De Gaetano - patrizia.de_gaetano@arpal.liguria.it
 
 
@@ -59,5 +62,6 @@ Luca Miscioscia - lumis98@gmail.com
 Federico Cassola - federico.cassola@arpal.liguria.it
 
 Marco Tizzi - marco.tizzi@arpal.liguria.it
+
 
 
