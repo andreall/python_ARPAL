@@ -54,4 +54,5 @@ Andrea Lira Loarca - andrea.lira.loarca@unige.it
 
 
 Martina Raffellini - martina.raffellini@arpal.liguria.it
+Federico Cassola - federico.cassola@arpal.liguria.it
 
