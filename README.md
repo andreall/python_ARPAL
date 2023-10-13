@@ -54,7 +54,7 @@ Patrizia De Gaetano - patrizia.de_gaetano@arpal.liguria.it
 
 
 Laura Pedemonte - laura.pedemonte@arpal.liguria.it
-Martina Raffellini - martina.raffellini@arpal.liguria.it
+Martina Raffellini - martina.raffellini@gmail.com
 Luca Miscioscia - lumis98@gmail.com
 Federico Cassola - federico.cassola@arpal.liguria.it
 
