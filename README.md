@@ -50,4 +50,6 @@ Venerdì 27 ottobre 2023 | 09:00-13:00
 Participants:
 
 Andrea Lira Loarca - andrea.lira.loarca@unige.it
+
 Laura Pedemonte - laura.pedemonte@arpal.liguria.it
+Martina Raffellini - martina.raffellini@arpal.liguria.it
