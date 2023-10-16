@@ -1,5 +1,6 @@
 # prova martina 202310160920
 # Prova Laura 20231016
+
 #%%
 u = 1
 v = 4
@@ -15,3 +16,5 @@ Uw2 = uv2mag(u2, v2)
 
 # %%
 ### prova Patti
+
+# Questa è una prova di Edo
