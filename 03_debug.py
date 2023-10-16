@@ -1,5 +1,10 @@
 # prova martina 202310160920
+<<<<<<< HEAD
+# Prova Laura 20231016
+
+=======
 # Prova Laura 20231016 ci riprovo
+>>>>>>> 6b1aff372b54be6baabe78b0d6f7809c942619ce
 
 #%%
 u = 1
