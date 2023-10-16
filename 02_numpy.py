@@ -9,6 +9,7 @@ for n in range(5):
     b.append(n)
 c = np.array(b)
 c
+# laura prova
 
 # %% [markdown]
 # Numpy arrays have several attributes that give useful information about the array:
