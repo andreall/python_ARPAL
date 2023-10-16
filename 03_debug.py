@@ -12,3 +12,4 @@ v2 = np.arange(5, 14)
 Uw2 = uv2mag(u2, v2)
 
 # %%
+# Prova Edo
