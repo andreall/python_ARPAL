@@ -48,23 +48,19 @@ Venerdì 27 ottobre 2023 | 09:00-13:00
 
 
 
-Andrea Lira Loarca - andrea.lira.loarca@unige.it
+Andrea Lira Loarca - andrea.lira.loarca@unige.it  
+Dario Hourngir - dario.hourngir@arpal.liguria.it  
+Patrizia De Gaetano - patrizia.de_gaetano@arpal.liguria.it  
+Laura Pedemonte - laura.pedemonte@arpal.liguria.it  
+Martina Raffellini - martina.raffellini@gmail.com  
+Luca Miscioscia - lumis98@gmail.com  
+Federico Cassola - federico.cassola@arpal.liguria.it  
+Edoardo Rocca - edoardo.rocca@arpal.liguria.it  
+Marco Tizzi - marco.tizzi@arpal.liguria.it  
 
 
-Dario Hourngir - dario.hourngir@arpal.liguria.it
-
-Patrizia De Gaetano - patrizia.de_gaetano@arpal.liguria.it
-
-
-Laura Pedemonte - laura.pedemonte@arpal.liguria.it
-Martina Raffellini - martina.raffellini@gmail.com
-Luca Miscioscia - lumis98@gmail.com
-Federico Cassola - federico.cassola@arpal.liguria.it
-
-
-Edoardo Rocca - edoardo.rocca@arpal.liguria.it
-
-Marco Tizzi - marco.tizzi@arpal.liguria.it
-
-
-
+pip install cmocean
+conda install -c conda-forge xarray dask netCDF4 bottleneck
+pip install erddapy
+pip install cartopy
+pip install cdsapi
