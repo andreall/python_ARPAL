@@ -5,3 +5,4 @@ numpy/01_introduction_python.key
 /__pycache__
 04b_datetime_luca.ipynb
 04a_matplotlib_basics.ipynb
+04c_pandas_matplotlib_luca.ipynb
