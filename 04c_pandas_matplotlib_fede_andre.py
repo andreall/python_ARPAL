@@ -138,8 +138,8 @@ p_file = Path('__file__').resolve()
 dir_data = p_file.parents[0] / 'data'
 
 fnd = dir_data / 'GLODAPv2.2021.csv'
-df2 = pd.read_table(fnd, sep=',')
-df2
+df2 = pd.read_table(fnd, sep=',', parse_dates=[4, 5, 6, 7, 8])
+df2.iloc[0, 0]
 
 # %% [markdown]
 # The `DataFrame` index, as described above, contains information characterizing rows; each row has a unique ID value, which is displayed in the index column.  By default, the IDs for rows in a `DataFrame` are represented as sequential integers, which start at 0.
@@ -157,13 +157,14 @@ df.index
 #                     parse_dates={'time': ['G2year', 'G2month', 'G2day', 'G2hour', 'G2minute']},
 #                     date_format='%Y %m %d %H %M', 
 # )
-
+import datetime as dt
 df2 = pd.read_table(fnd, sep=',', dtype={'G2year': int, 'G2month': int, 'G2day': int, 
-                                                       'G2hour': int, 'G2minute': int},
-                    parse_dates={'time': ['G2year', 'G2month', 'G2day', 'G2hour', 'G2minute']},
-                    infer_datetime_format=True, 
-)
-df2 
+                                                       'G2hour': int, 'G2minute': int})
+df2['time'] = pd.to_datetime({'year':df2.G2year, 'month':df2.G2month.values, 
+                            'day':df2.G2day, 'hour':df2.G2hour, 'minute':df2.G2minute})
+df2.drop(['G2year', 'G2month', 'G2day', 'G2hour', 'G2minute'], axis=1, inplace=True)
+df2.set_index('time', inplace=True)
+df2
 # date was not recognized!
 
 # %%
@@ -207,10 +208,9 @@ df.G2temperature
 # %%
 df = pd.read_table('data/data_waves.dat', header=None, delim_whitespace=True, 
                    names=['YY', 'mm', 'DD', 'time', 'hs', 'tm', 'tp', 'dirm', 'dp', 'spr', 'h', 'lm', 'lp', 
-                          'uw', 'vw'],
-                  parse_dates=[[0, 1, 2, 3]], index_col=0)
+                          'uw', 'vw'], parse_dates=[0, 1, 2, 3],index_col=0)
 df
-
+df.index
 # %% [markdown]
 # ### Using `.iloc` and `.loc` to index
 # 
@@ -248,7 +248,13 @@ df.loc["1982-01-01":"1982-12-01"]
 # - Get the maximum and mean data
 
 # %%
-
+fede=df[['hs', 'tm', 'dirm']]
+fede
+fede.loc["1980-01-01":"1990-12-31"]
+maxfede=fede.max()
+maxfede
+meanfede=fede.mean()
+meanfede
 
 # %% [markdown]
 # ### Exercise B

@@ -159,13 +159,12 @@ df.index
 # )
 
 df2 = pd.read_table(fnd, sep=',', dtype={'G2year': int, 'G2month': int, 'G2day': int, 
-                                                       'G2hour': int, 'G2minute': int})
-
+                                                       'G2hour': int, 'G2minute': int},
+                    parse_dates={'time': ['G2year', 'G2month', 'G2day', 'G2hour', 'G2minute']},
+                    infer_datetime_format=True, 
+)
+df2 
 # date was not recognized!
-df2['time']=pd.to_datetime({'year':df2.G2year, 'month':df2.G2month, 'day':df2.G2day, 'hour':df2.G2hour, 'minute':df2.G2minute})
-df2.drop(['G2year', 'G2month', 'G2day', 'G2hour', 'G2minute'], axis=1, inplace=True)
-df2.set_index('time', inplace=True)
-df2
 
 # %%
 df2.drop('time', axis=1)
@@ -208,8 +207,9 @@ df.G2temperature
 # %%
 df = pd.read_table('data/data_waves.dat', header=None, delim_whitespace=True, 
                    names=['YY', 'mm', 'DD', 'time', 'hs', 'tm', 'tp', 'dirm', 'dp', 'spr', 'h', 'lm', 'lp', 
-                          'uw', 'vw'],parse_dates=[[0,1,2,3]],index_col=0)
-df.index
+                          'uw', 'vw'],
+                  parse_dates=[[0, 1, 2, 3]], index_col=0)
+df
 
 # %% [markdown]
 # ### Using `.iloc` and `.loc` to index
@@ -229,7 +229,7 @@ df.iloc[0:12]
 df.loc["1982-04-01"]
 
 # %%
-df.loc["1982-01-01":"1982-12-01", 'hs']
+df.loc["1982-01-01":"1982-12-01"]
 
 # %% [markdown]
 # The `.loc` and `.iloc` methods also allow us to pull entire rows out of a `DataFrame`, as shown in these examples:
@@ -247,16 +247,6 @@ df.loc["1982-01-01":"1982-12-01"]
 # - Select the 1980-1990 data
 # - Get the maximum and mean data
 
-df_xa = df.loc[:, ['hs', 'tm', 'dirm']]
-
-df_xa = df_xa.loc["1980-01":"1990-12"]
-
-df_xa
-
-max(df_xa.hs)
-max(df_xa.tm)
-max(df_xa.dirm)
-
 # %%
 
 
@@ -266,13 +256,6 @@ max(df_xa.dirm)
 # - Define a new dataframe with the tp, uw, uv data
 # - Select the 1990-2000 data
 # - Get the minimum and mean data
-df_new=df.loc[:, ['tp', 'uw', 'vw']]
-m_tp=df_new['tp'].min()
-m_uw=df_new['uw'].min()
-m_vw=df_new['vw'].min()
-a_tp=df_new['tp'].mean()
-a_uw=df_new['uw'].mean()
-a_vw=df_new['vw'].mean()
 
 # %% [markdown]
 # 

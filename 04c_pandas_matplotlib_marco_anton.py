@@ -246,12 +246,6 @@ df.loc["1982-01-01":"1982-12-01"]
 # - Define a new dataframe with the hs, tm, dirm data
 # - Select the 1980-1990 data
 # - Get the maximum and mean data
-yoco=df[['hs','tm','dirm']]
-anto=yoco.loc["1980-01-01":"1990-12-31"]
-yoco_med=yoco.mean()
-yoco_max=yoco.max()
-anto_med=anto.mean()
-anto_max=anto.max()
 
 # %%
 
@@ -262,10 +256,6 @@ anto_max=anto.max()
 # - Define a new dataframe with the tp, uw, uv data
 # - Select the 1990-2000 data
 # - Get the minimum and mean data
-cassol=df[['tp','uw','vw']]
-cassol=cassol.loc["1990-01-01":"2000-12-31"]
-cassol_med=anto.mean()
-cassol_min=anto.min()
 
 # %% [markdown]
 # 
