@@ -133,19 +133,22 @@ df.index[0]
 # %% [markdown]
 # ### Read file
 
-# %%
-p_file = Path('__file__').resolve()
-dir_data = p_file.parents[0] / 'data'
-
-fnd = dir_data / 'GLODAPv2.2021.csv'
-df2 = pd.read_table(fnd, sep=',')
-df2
+#%%
+df = pd.read_table('data/data_waves.dat', header=None, delim_whitespace=True, 
+                   names=['YY', 'mm', 'DD', 'time', 'hs', 'tm', 'tp', 'dirm', 'dp', 'spr', 'h', 'lm', 'lp', 
+                          'uw', 'vw'],
+                  parse_dates=[[0, 1, 2, 3]], index_col=0)
+df.index
 
 # %% [markdown]
 # The `DataFrame` index, as described above, contains information characterizing rows; each row has a unique ID value, which is displayed in the index column.  By default, the IDs for rows in a `DataFrame` are represented as sequential integers, which start at 0.
 
 # %%
-df.index
+p_file = Path('__file__').resolve()
+dir_data = p_file.parents[0] / 'data'
+
+fnd = dir_data / 'GLODAPv2.2021.csv'
+df2 = pd.read_table(fnd, sep=',', parse_dates = [[4,5,6,7,8]], infer_datetime_format=True,)
 
 # %% [markdown]
 # At the moment, the index column of our `DataFrame` is not very helpful for humans. However, Pandas has clever ways to make index columns more human-readable. The next example demonstrates how to use optional keyword arguments to convert `DataFrame` index IDs to a human-friendly datetime format.
@@ -157,6 +160,7 @@ df.index
 #                     parse_dates={'time': ['G2year', 'G2month', 'G2day', 'G2hour', 'G2minute']},
 #                     date_format='%Y %m %d %H %M', 
 # )
+#%%
 
 df2 = pd.read_table(fnd, sep=',', dtype={'G2year': int, 'G2month': int, 'G2day': int, 
                                                        'G2hour': int, 'G2minute': int},
@@ -168,7 +172,15 @@ df2
 
 # %%
 df2.drop('time', axis=1)
+#%%
+df2 = pd.read_table(fnd, sep=',', dtype={'G2year': int, 'G2month': int, 'G2day': int, 
+                                                       'G2hour': int, 'G2minute': int})
+df2['time'] = pd.to_datetime({'year': df2.G2year, 'month':df2.G2month, 'day' : df2.G2day, 'hour': df2.G2hour, 'minute': df2.G2minute})
 
+#%%
+
+df2.drop(['G2year', 'G2month', 'G2day', 'G2hour', 'G2minute'], axis = 1, inplace = True)
+df2.set_index('time', inplace = True)
 # %% [markdown]
 # Each of our data rows is now helpfully labeled by a datetime-object-like index value; this means that we can now easily identify data values not only by named columns, but also by date labels on rows. This is a sneak preview of the `DatetimeIndex` functionality of Pandas; this functionality enables a large portion of Pandas' timeseries-related usage. Don't worry; `DatetimeIndex` will be discussed in full detail later on this page. In the meantime, let's look at the columns of data read in from the `.csv` file:
 
@@ -195,14 +207,14 @@ df.columns
 # df.15 is not valid!
 
 # %%
-df['G2temperature']
+df2['G2temperature']
 
 # %% [markdown]
 # <div class="alert alert-block alert-info">
 # <b>Tip:</b> You can also use the dot notation illustrated below to specify a column name, but this syntax is mostly provided for convenience. For the most part, this notation is interchangeable with the dictionary notation; however, if the column name is not a valid Python identifier (e.g., it starts with a number or space), you cannot use dot notation.</div>
 
 # %%
-df.G2temperature
+df2.G2temperature
 
 # %%
 df = pd.read_table('data/data_waves.dat', header=None, delim_whitespace=True, 
@@ -258,10 +270,15 @@ df.loc["1982-01-01":"1982-12-01"]
 # - Get the minimum and mean data
 
 # %% [markdown]
-# 
+df3 = df[['tp', 'uw', 'vw']]
+df3 = df3.loc["1990":"2000"]
+tp_min, tp_mean = np.min(df3.tp), np.mean(df3.tp)
+uw_min, uw_mean = np.min(df3.uw), np.mean(df3.tp)
+vw_min, vw_mean = np.min(df3.vw), np.mean(df3.tp)
 
-# %%
+df3.max()
 
+df3.loc[df3.tp == tp_min]
 
 # %% [markdown]
 # ### Get stats on the dataset
