@@ -253,6 +253,14 @@ yoco_max=yoco.max()
 anto_med=anto.mean()
 anto_max=anto.max()
 
+
+
+#### ANTONIO
+markis= df[['hs','tm','dirm']]
+markis
+markis.loc["1980-01-01":"1990-12-31"]
+Media=markis.mean()
+Massimo=markis.max()
 # %%
 
 
