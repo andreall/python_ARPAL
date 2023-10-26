@@ -356,6 +356,19 @@ df.to_csv
 # - Create a 2x2 figure
 # - plot variables data, the 1-year resample data, a 3 month rolling month and markers for the  annual maxima: tp for top-left and uw top-right
 # - plot tp-uw and tp-vw scatter on bottom-left and bottom-right
+fig, axs = plt.subplots(2, 2, figsize=(20, 10))
+def plot1(ax, var):
+    dfp = df.loc['1980-01-01':'1983-12-31', var]
+    ax.plot(dfp)
+    ax.plot(dfp.resample('AS').max(), label='annual max')
+    ax.plot(dfp.resample('90D').max(), label='90days rolling')
+plot1(axs[0, 0], 'tp')
+plot1(axs[0, 1], 'uw')
+
+axs[1, 0].scatter(df.tp, df.uw)
+axs[1, 0].set_xlim(0, 16)
+axs[1, 1].scatter(df.tp, df.vw)
+axs[1, 1].set_xlim(0, 16)
 
 # %% [markdown]
 # # Seaborn

@@ -247,6 +247,14 @@ df.loc["1982-01-01":"1982-12-01"]
 # - Select the 1980-1990 data
 # - Get the maximum and mean data
 
+
+
+#### ANTONIO
+markis= df[['hs','tm','dirm']]
+markis
+markis.loc["1980-01-01":"1990-12-31"]
+Media=markis.mean()
+Massimo=markis.max()
 # %%
 
 
