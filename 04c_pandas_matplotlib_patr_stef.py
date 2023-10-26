@@ -295,8 +295,11 @@ dfi = df.iloc[:500]
 # %%
 dfi.hs.resample('24H').mean().plot(style=':', linewidth=2)
 
-# %%
-df.hs.resample('A').mean()
+df.resample('24H').mean().hs[:5].plot(style=':', linewidth=2)
+df.hs.resample('A').max()
+stag=df.resample('QS-DEC').max()
+stag=stag.groupby(stag.index.month).mean()
+#df.hs.resample('AS').mean()
 
 # %% [markdown]
 # For up-sampling, ``resample()`` and ``asfreq()`` are largely equivalent, though resample has many more options available.
@@ -346,6 +349,33 @@ df.to_csv
 # - Create a 2x2 figure
 # - plot variables data, the 1-year resample data, a 3 month rolling month and markers for the  annual maxima: hs for top-left and tm top-right
 # - plot hs-dirm and tm-dirm scatter on bottom-left and bottom-right
+import matplotlib.pyplot as plt
+fig, axs= plt.subplots(2, 2, figsize=(20,10))
+
+# Create a plot for temperature
+def plot1(ax, var):
+    dfp=df.loc['1980-01-01':'1983-01-01', var]
+    ax.plot(dfp,label='time series')
+    ax.plot(dfp.resample('AS').max(), label='')
+    ax.plot(dfp.rolling('90D').max(), label='90days')
+
+
+plot1(axs[0, 0],'tp')
+plot1(axs[0,1],'uw')
+
+axs[1, 0].scatter(df.tp,df.uw)
+axs[1,0].set_xlim(0,16)
+axs[1, 1].scatter(df.tp,df.uw)
+axs[1,1].set_xlim(0,16)
+# Create a plot for dewpoint
+#ax2 = fig.add_subplot(1, 2, 2)
+#df.hs.resample('1Y').mean().plot();
+#ax2.plot(ds.hs.resample('1Y'), color='tab:green');
+
+
+
+
+
 
 # %% [markdown]
 # 
@@ -391,3 +421,10 @@ g = sb.jointplot(data=tips, x="total_bill", y="tip", kind="hex",
                   xlim=(0, 60), ylim=(0, 12), color=color)
 
 
+#%%
+color = sb.color_palette()[2]
+g = sb.jointplot(data=df, x="hs", y="tp", kind="reg",
+                  xlim=(0, 6), ylim=(0, 16), color=color)
+
+
+# %%
