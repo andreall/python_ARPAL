@@ -247,6 +247,16 @@ df.loc["1982-01-01":"1982-12-01"]
 # - Select the 1980-1990 data
 # - Get the maximum and mean data
 
+df_xa = df.loc[:, ['hs', 'tm', 'dirm']]
+
+df_xa = df_xa.loc["1980-01":"1990-12"]
+
+df_xa
+
+max(df_xa.hs)
+max(df_xa.tm)
+max(df_xa.dirm)
+
 # %%
 
 
