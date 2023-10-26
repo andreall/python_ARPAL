@@ -380,6 +380,9 @@ axs[1, 0].set_xlim(0,16)
 # - plot variables data, the 1-year resample data, a 3 month rolling month and markers for the  annual maxima: tp for top-left and uw top-right
 # - plot tp-uw and tp-vw scatter on bottom-left and bottom-right
 
+a = 1
+
+
 # %% [markdown]
 # # Seaborn
 
