@@ -247,6 +247,14 @@ df.loc["1982-01-01":"1982-12-01"]
 # - Select the 1980-1990 data
 # - Get the maximum and mean data
 
+df3 = pd.read_table('data/data_waves.dat', header=None, delim_whitespace=True, 
+                   names=['YY', 'mm', 'DD', 'time', 'hs', 'tm', 'tp', 'dirm', 'dp', 'spr', 'h', 'lm', 'lp', 
+                          'uw', 'vw'], parse_dates=[[0, 1, 2, 3]], index_col=0)
+
+df3.drop(['tp', 'dp', 'spr', 'h', 'lm', 'lp', 'uw', 'vw'], axis=1, inplace=True)
+df3.loc["1980-01-01":"1989-12-31 23:00:00"]
+df3.max()
+df3.mean()
 # %%
 
 

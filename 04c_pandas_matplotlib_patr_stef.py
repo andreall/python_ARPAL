@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 
 import datetime
 from pathlib import Path
-a=1
+
 
 # %% [markdown]
 # ## Load ERDDAP data
@@ -133,29 +133,19 @@ df.index[0]
 # %% [markdown]
 # ### Read file
 
-#%%
-df = pd.read_table('data/data_waves.dat', header=None, delim_whitespace=True, 
-                   names=['YY', 'mm', 'DD', 'time', 'hs', 'tm', 'tp', 'dirm', 'dp', 'spr', 'h', 'lm', 'lp', 
-                          'uw', 'vw'],
-                  parse_dates=[[0, 1, 2, 3]], index_col=0)
-df.index
 # %%
 p_file = Path('__file__').resolve()
 dir_data = p_file.parents[0] / 'data'
 
 fnd = dir_data / 'GLODAPv2.2021.csv'
-df2 = pd.read_table(fnd, sep=',', parse_dates=[[4, 5, 6,77 ,8]])
-df2.iloc[0, 0 ]
+df2 = pd.read_table(fnd, sep=',')
+df2
 
 # %% [markdown]
 # The `DataFrame` index, as described above, contains information characterizing rows; each row has a unique ID value, which is displayed in the index column.  By default, the IDs for rows in a `DataFrame` are represented as sequential integers, which start at 0.
 
 # %%
-p_file = Path('__file__').resolve()
-dir_data = p_file.parents[0] / 'data'
-
-fnd = dir_data / 'GLODAPv2.2021.csv'
-df2 = pd.read_table(fnd, sep=',', parse_dates = [[4,5,6,7,8]], infer_datetime_format=True,)
+df.index
 
 # %% [markdown]
 # At the moment, the index column of our `DataFrame` is not very helpful for humans. However, Pandas has clever ways to make index columns more human-readable. The next example demonstrates how to use optional keyword arguments to convert `DataFrame` index IDs to a human-friendly datetime format.
@@ -167,26 +157,18 @@ df2 = pd.read_table(fnd, sep=',', parse_dates = [[4,5,6,7,8]], infer_datetime_fo
 #                     parse_dates={'time': ['G2year', 'G2month', 'G2day', 'G2hour', 'G2minute']},
 #                     date_format='%Y %m %d %H %M', 
 # )
-#%%
 
-df2['time']=pd.to_datetime({'year':df2.G2year, 'month':df2.G2month, 'day':df2.G2day, 
-                           'hour':df2.G2hour,'minute':df2.G2minute})
-#df2.time[0]
+df2 = pd.read_table(fnd, sep=',', dtype={'G2year': int, 'G2month': int, 'G2day': int, 
+                                                       'G2hour': int, 'G2minute': int},
+                    parse_dates={'time': ['G2year', 'G2month', 'G2day', 'G2hour', 'G2minute']},
+                    infer_datetime_format=True, 
+)
+df2 
 # date was not recognized!
-df2.drop(['G2year', 'G2month','G2day','G2hour','G2minute'], axis=1, inplace=True)
-df2.set_index('time',inplace=True)
 
 # %%
 df2.drop('time', axis=1)
-#%%
-df2 = pd.read_table(fnd, sep=',', dtype={'G2year': int, 'G2month': int, 'G2day': int, 
-                                                       'G2hour': int, 'G2minute': int})
-df2['time'] = pd.to_datetime({'year': df2.G2year, 'month':df2.G2month, 'day' : df2.G2day, 'hour': df2.G2hour, 'minute': df2.G2minute})
 
-#%%
-
-df2.drop(['G2year', 'G2month', 'G2day', 'G2hour', 'G2minute'], axis = 1, inplace = True)
-df2.set_index('time', inplace = True)
 # %% [markdown]
 # Each of our data rows is now helpfully labeled by a datetime-object-like index value; this means that we can now easily identify data values not only by named columns, but also by date labels on rows. This is a sneak preview of the `DatetimeIndex` functionality of Pandas; this functionality enables a large portion of Pandas' timeseries-related usage. Don't worry; `DatetimeIndex` will be discussed in full detail later on this page. In the meantime, let's look at the columns of data read in from the `.csv` file:
 
@@ -213,21 +195,21 @@ df.columns
 # df.15 is not valid!
 
 # %%
-df2['G2temperature']
+df['G2temperature']
 
 # %% [markdown]
 # <div class="alert alert-block alert-info">
 # <b>Tip:</b> You can also use the dot notation illustrated below to specify a column name, but this syntax is mostly provided for convenience. For the most part, this notation is interchangeable with the dictionary notation; however, if the column name is not a valid Python identifier (e.g., it starts with a number or space), you cannot use dot notation.</div>
 
 # %%
-df2.G2temperature
+df.G2temperature
 
 # %%
 df = pd.read_table('data/data_waves.dat', header=None, delim_whitespace=True, 
                    names=['YY', 'mm', 'DD', 'time', 'hs', 'tm', 'tp', 'dirm', 'dp', 'spr', 'h', 'lm', 'lp', 
                           'uw', 'vw'],
                   parse_dates=[[0, 1, 2, 3]], index_col=0)
-df.index
+df
 
 # %% [markdown]
 # ### Using `.iloc` and `.loc` to index
@@ -235,23 +217,14 @@ df.index
 # In this section, we introduce ways to access data that are preferred by Pandas over the methods listed above. When accessing by label, it is preferred to use the `.loc` method, and when accessing by index, the `.iloc` method is preferred. These methods behave similarly to the notation introduced above, but provide more speed, security, and rigor in your value selection. Using these methods can also help you avoid [chained assignment warnings](https://pandas.pydata.org/docs/user_guide/indexing.html#returning-a-view-versus-a-copy) generated by pandas.
 
 # %%
-df["1982-01":"1982-12"]
+df["1982-01-01":"1982-12-01"]
 
 # %%
 df.iloc[3]
 
-# %% per la posizione 
-df.iloc[0:12].hs
-
 # %%
-df.loc["1982-04-01"]
+df.iloc[0:12]
 
-# %%
-df.loc["1982-01-01":"1982-12-01 23", 'hs']
-
-# %% [markdown]
-# The `.loc` and `.iloc` methods also allow us to pull entire rows out of a `DataFrame`, 
-# as shown in these examples:dayunique=df.max()
 # %%
 df.loc["1982-04-01"]
 
@@ -259,17 +232,24 @@ df.loc["1982-04-01"]
 df.loc["1982-01-01":"1982-12-01"]
 
 # %% [markdown]
-# ### Exercise A - Patti
+# The `.loc` and `.iloc` methods also allow us to pull entire rows out of a `DataFrame`, as shown in these examples:
+
+# %%
+df.loc["1982-04-01"]
+
+# %%
+df.loc["1982-01-01":"1982-12-01"]
+
+# %% [markdown]
+# ### Exercise A
 # 
 # - Define a new dataframe with the hs, tm, dirm data
 # - Select the 1980-1990 data
 # - Get the maximum and mean data
-df3=df.loc[:, ['hs','tm','dirm']]
-df4=df3.loc["1980":"1990"]
-
-max4=df4.max()
 
 # %%
+
+
 # %% [markdown]
 # ### Exercise B
 # 
@@ -278,13 +258,13 @@ max4=df4.max()
 # - Get the minimum and mean data
 
 # %% [markdown]
-df3 = df[['tp', 'uw', 'vw']]
-df3 = df3.loc["1990":"2000"]
-tp_min, tp_mean = np.min(df3.tp), np.mean(df3.tp)
-uw_min, uw_mean = np.min(df3.uw), np.mean(df3.tp)
-vw_min, vw_mean = np.min(df3.vw), np.mean(df3.tp)
+df5 = df[['tp', 'uw', 'vw']]
+df5 = df5.loc["1990":"2000"]
+tp_min, tp_mean = df5.tp.min(), df5.tp.mean()
+uw_min, uw_mean = df5.uw.min(), df5.tp.mean()
+vw_min, vw_mean = df5.vw.min(), df5.tp.mean()
 
-df3.max()
+df5.max()
 
 
 # %% [markdown]
@@ -302,7 +282,7 @@ df.max()
 
 # %%
 df['hs']
-df.hs
+
 # %%
 df.hs[:100].plot()
 

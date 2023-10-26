@@ -351,6 +351,23 @@ df.to_csv
 
 # %% [markdown]
 # 
+import matplotlib.pyplot as plt
+import numpy as np
+
+fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(20, 10))
+
+def plot1(ax,var):
+    dfp=df.loc['1980-01-01':'1983-12-31', var]
+    ax.plot(dfp,label='time series')
+    ax.plot(dfp.resample('A').max(),label='annual max')
+    ax.plot(dfp.rolling('90D').max(),label='90days rolling')
+
+plot1(axs[0, 0], 'tp')
+plot1(axs[0, 1], 'uw')
+
+axs[1, 0].scatter(df.tp,df.uw)
+axs[1, 0].set_xlim(0,16)
+
 
 # %% [markdown]
 # 
@@ -393,3 +410,8 @@ g = sb.jointplot(data=tips, x="total_bill", y="tip", kind="hex",
                   xlim=(0, 60), ylim=(0, 12), color=color)
 
 
+# %%
+color = sb.color_palette()[2]
+g = sb.jointplot(data=df, x="hs", y="tp", kind="reg",
+                  xlim=(0, 6), ylim=(0, 16), color=color)
+# %%
