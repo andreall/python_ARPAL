@@ -266,7 +266,7 @@ max(df_xa.dirm)
 # - Define a new dataframe with the tp, uw, uv data
 # - Select the 1990-2000 data
 # - Get the minimum and mean data
-df_new=df.loc[:, ['tp', 'uw', 'vw']]
+df_new=df.loc["1990-01":"2000-12", ['tp', 'uw', 'vw']]
 m_tp=df_new['tp'].min()
 m_uw=df_new['uw'].min()
 m_vw=df_new['vw'].min()
