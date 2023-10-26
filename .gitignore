@@ -3,6 +3,9 @@ numpy/01_introduction_python.key
 .DS_Store
 /01_introduction_python.key
 /__pycache__
+04a_matplotlib_basics_appunti.ipynb
+02_numpy_appunti.py
+python_ARPAL-3.code-workspace
 04b_datetime_luca.ipynb
 04a_matplotlib_basics.ipynb
 04c_pandas_matplotlib_luca.ipynb
