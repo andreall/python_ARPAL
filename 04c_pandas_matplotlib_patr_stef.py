@@ -286,7 +286,6 @@ vw_min, vw_mean = np.min(df3.vw), np.mean(df3.tp)
 
 df3.max()
 
-df3.loc[df3.tp == tp_min]
 
 # %% [markdown]
 # ### Get stats on the dataset
