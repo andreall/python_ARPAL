@@ -278,13 +278,13 @@ max4=df4.max()
 # - Get the minimum and mean data
 
 # %% [markdown]
-df3 = df[['tp', 'uw', 'vw']]
-df3 = df3.loc["1990":"2000"]
-tp_min, tp_mean = np.min(df3.tp), np.mean(df3.tp)
-uw_min, uw_mean = np.min(df3.uw), np.mean(df3.tp)
-vw_min, vw_mean = np.min(df3.vw), np.mean(df3.tp)
+df5 = df[['tp', 'uw', 'vw']]
+df5 = df5.loc["1990":"2000"]
+tp_min, tp_mean = df5.tp.min(), df5.tp.mean()
+uw_min, uw_mean = df5.uw.min(), df5.tp.mean()
+vw_min, vw_mean = df5.vw.min(), df5.tp.mean()
 
-df3.max()
+df5.max()
 
 
 # %% [markdown]
