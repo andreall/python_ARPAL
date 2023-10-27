@@ -138,8 +138,8 @@ p_file = Path('__file__').resolve()
 dir_data = p_file.parents[0] / 'data'
 
 fnd = dir_data / 'GLODAPv2.2021.csv'
-df2 = pd.read_table(fnd, sep=',')
-df2
+df2 = pd.read_table(fnd, sep=',', parse_dates=[4, 5, 6, 7, 8])
+df2.iloc[0, 0]
 
 # %% [markdown]
 # The `DataFrame` index, as described above, contains information characterizing rows; each row has a unique ID value, which is displayed in the index column.  By default, the IDs for rows in a `DataFrame` are represented as sequential integers, which start at 0.
@@ -157,13 +157,14 @@ df.index
 #                     parse_dates={'time': ['G2year', 'G2month', 'G2day', 'G2hour', 'G2minute']},
 #                     date_format='%Y %m %d %H %M', 
 # )
-
+import datetime as dt
 df2 = pd.read_table(fnd, sep=',', dtype={'G2year': int, 'G2month': int, 'G2day': int, 
-                                                       'G2hour': int, 'G2minute': int},
-                    parse_dates={'time': ['G2year', 'G2month', 'G2day', 'G2hour', 'G2minute']},
-                    infer_datetime_format=True, 
-)
-df2 
+                                                       'G2hour': int, 'G2minute': int})
+df2['time'] = pd.to_datetime({'year':df2.G2year, 'month':df2.G2month.values, 
+                            'day':df2.G2day, 'hour':df2.G2hour, 'minute':df2.G2minute})
+df2.drop(['G2year', 'G2month', 'G2day', 'G2hour', 'G2minute'], axis=1, inplace=True)
+df2.set_index('time', inplace=True)
+df2
 # date was not recognized!
 
 # %%
@@ -207,10 +208,9 @@ df.G2temperature
 # %%
 df = pd.read_table('data/data_waves.dat', header=None, delim_whitespace=True, 
                    names=['YY', 'mm', 'DD', 'time', 'hs', 'tm', 'tp', 'dirm', 'dp', 'spr', 'h', 'lm', 'lp', 
-                          'uw', 'vw'],
-                  parse_dates=[[0, 1, 2, 3]], index_col=0)
+                          'uw', 'vw'], parse_dates=[0, 1, 2, 3],index_col=0)
 df
-
+df.index
 # %% [markdown]
 # ### Using `.iloc` and `.loc` to index
 # 
@@ -248,7 +248,13 @@ df.loc["1982-01-01":"1982-12-01"]
 # - Get the maximum and mean data
 
 # %%
-
+fede=df[['hs', 'tm', 'dirm']]
+fede
+fede.loc["1980-01-01":"1990-12-31"]
+maxfede=fede.max()
+maxfede
+meanfede=fede.mean()
+meanfede
 
 # %% [markdown]
 # ### Exercise B
@@ -258,13 +264,9 @@ df.loc["1982-01-01":"1982-12-01"]
 # - Get the minimum and mean data
 
 # %% [markdown]
-df5 = df[['tp', 'uw', 'vw']]
-df5 = df5.loc["1990":"2000"]
-tp_min, tp_mean = df5.tp.min(), df5.tp.mean()
-uw_min, uw_mean = df5.uw.min(), df5.tp.mean()
-vw_min, vw_mean = df5.vw.min(), df5.tp.mean()
+# 
 
-df5.max()
+# %%
 
 
 # %% [markdown]
@@ -295,11 +297,8 @@ dfi = df.iloc[:500]
 # %%
 dfi.hs.resample('24H').mean().plot(style=':', linewidth=2)
 
-df.resample('24H').mean().hs[:5].plot(style=':', linewidth=2)
-df.hs.resample('A').max()
-stag=df.resample('QS-DEC').max()
-stag=stag.groupby(stag.index.month).mean()
-#df.hs.resample('AS').mean()
+# %%
+df.hs.resample('A').mean()
 
 # %% [markdown]
 # For up-sampling, ``resample()`` and ``asfreq()`` are largely equivalent, though resample has many more options available.
@@ -349,36 +348,26 @@ df.to_csv
 # - Create a 2x2 figure
 # - plot variables data, the 1-year resample data, a 3 month rolling month and markers for the  annual maxima: hs for top-left and tm top-right
 # - plot hs-dirm and tm-dirm scatter on bottom-left and bottom-right
-import matplotlib.pyplot as plt
-fig, axs= plt.subplots(2, 2, figsize=(20,10))
-
-# Create a plot for temperature
-def plot1(ax, var):
-    dfp=df.loc['1980-01-01':'1983-01-01', var]
-    ax.plot(dfp,label='time series')
-    ax.plot(dfp.resample('AS').max(), label='')
-    ax.plot(dfp.rolling('90D').max(), label='90days')
-
-
-plot1(axs[0, 0],'tp')
-plot1(axs[0,1],'uw')
-
-axs[1, 0].scatter(df.tp,df.uw)
-axs[1,0].set_xlim(0,16)
-axs[1, 1].scatter(df.tp,df.uw)
-axs[1,1].set_xlim(0,16)
-# Create a plot for dewpoint
-#ax2 = fig.add_subplot(1, 2, 2)
-#df.hs.resample('1Y').mean().plot();
-#ax2.plot(ds.hs.resample('1Y'), color='tab:green');
-
-
-
-
-
 
 # %% [markdown]
 # 
+import matplotlib.pyplot as plt
+import numpy as np
+
+fig, axs = plt.subplots(nrows=2, ncols=2, figsize=(20, 10))
+
+def plot1(ax,var):
+    dfp=df.loc['1980-01-01':'1983-12-31', var]
+    ax.plot(dfp,label='time series')
+    ax.plot(dfp.resample('A').max(),label='annual max')
+    ax.plot(dfp.rolling('90D').max(),label='90days rolling')
+
+plot1(axs[0, 0], 'tp')
+plot1(axs[0, 1], 'uw')
+
+axs[1, 0].scatter(df.tp,df.uw)
+axs[1, 0].set_xlim(0,16)
+
 
 # %% [markdown]
 # 
@@ -421,10 +410,8 @@ g = sb.jointplot(data=tips, x="total_bill", y="tip", kind="hex",
                   xlim=(0, 60), ylim=(0, 12), color=color)
 
 
-#%%
+# %%
 color = sb.color_palette()[2]
 g = sb.jointplot(data=df, x="hs", y="tp", kind="reg",
                   xlim=(0, 6), ylim=(0, 16), color=color)
-
-
 # %%
