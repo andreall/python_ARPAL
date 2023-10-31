@@ -47,7 +47,6 @@ Venerdì 27 ottobre 2023 | 09:00-13:00
 - Lettura, scrittura ed elaborazioni dati di monitoraggio secondo D.lgs 152/06 e D.lgs n.190/2010 (Decreto Strategia Marina) 
 
 
-
 Andrea Lira Loarca - andrea.lira.loarca@unige.it  
 Dario Hourngir - dario.hourngir@arpal.liguria.it  
 Patrizia De Gaetano - patrizia.de_gaetano@arpal.liguria.it  
@@ -59,8 +58,37 @@ Edoardo Rocca - edoardo.rocca@arpal.liguria.it
 Marco Tizzi - marco.tizzi@arpal.liguria.it  
 
 
+TO CONFIG VISUAL STUDIO CODE:
+- You need to install the Python and Jupyter extensions (The extensions
+menu is on the left toolbar and is the icon that has squares - tetris)
+- You need to set the interpreter ->
+        1. View -> Command Palette -> TYPE "Python Interpreter"
+        2. Shift+Ctrl+P -> TYPE "Python Interpreter"
+    - Select the anaconda interpreter e.g. /home/anaconda3/bin/python
+
+
+TO CONFIG GIT:
+- Open Command Prompt from Windows Menu
+git config --global user.name "FIRST_NAME LAST_NAME"
+git config --global user.email "MY_NAME@example.com"
+
+
+TO INSTALL NEW LIBRARIES:
+- Open "Anaconda Prompt" from Windows Menu as ADMINISTRATOR
 pip install cmocean
 conda install -c conda-forge xarray dask netCDF4 bottleneck
 pip install erddapy
 pip install cartopy
 pip install cdsapi
+
+
+TO RUN/DEBUG .py:
+- For the Interactive mode (Jupyter):
+        1. You need to include "#%%" before and after the cell to run
+        2. The command "Run cell" will appear at the top of each cell. If it 
+        doesn't, check that you have configured the Python Interpreter. 
+- Normal Run
+        1. Click the "cucaracha/play" icon on the left toolbar
+- Normal Debug
+        1. You need to put a "Red Dot" on where you want the code to stop
+        2. Click the "cucaracha/play" icon on the left toolbar

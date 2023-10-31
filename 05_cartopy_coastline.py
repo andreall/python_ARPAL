@@ -26,39 +26,31 @@ ax.set_extent([coast.total_bounds[0] - xext, coast.total_bounds[2] + xext, coast
                 coast.total_bounds[3] + xext], crs=ccrs.PlateCarree())
 
 # Put a background image on for nice sea rendering.
-# ax.stock_img()
-# ax.add_image(imagery, 9)
+ax.stock_img()
+ax.add_image(imagery, 9)
 
 ax.add_geometries(coast['geometry'], ccrs.PlateCarree(), edgecolor='k', facecolor='white',
-                    linewidth=1.5)
+                    linewidth=1.5, zorder=11)
+# ax.coastlines(color='red')
 
 ds_unst = xr.open_dataset(dir_data / 'WW3_mediterr_20091201.grb2', engine='cfgrib')
 
-ax.contourf(ds_unst.longitude, ds_unst.latitude, ds_unst.swh.isel(step=20), zorder=10)
+p = ax.contourf(ds_unst.longitude, ds_unst.latitude, 
+                ds_unst.swh.max(dim='step'), zorder=9, 
+                levels=np.arange(1.5, 4.55, 0.1))
+fig.colorbar(p)
 
-filename_info_points = dir_data / 'SPI_Liguria__d18_probs_5c.pkl'
-with open(filename_info_points, 'rb') as dict_file:
-    dict_info = pickle.load(dict_file)
+for lon, lat in zip([8.48, 8.7, 9.02, 9.08], [44.25, 44.28, 44.31, 44.25]):
+    ds_unst_ii = ds_unst.sel(longitude=lon, latitude=lat, method='nearest')
 
-
-for ii, (node, lon, lat) in enumerate(zip(dict_info['nodes_unstr'][:1], dict_info['lon_unstr'][:1],
-                                            dict_info['lat_unstr'][:1])):
-    ds_unst_ii = ds_unst.sel(longitude=lon, latitude=lat, method='nearest').to_dataframe()
-    # Inset axe it with a fixed size
     wrax_cham = inset_axes(ax,
-                            width=1,  # size in inches
-                            height=1,  # size in inches
-                            loc='center',  # center bbox at given position
-                            bbox_to_anchor=(lon, lat),  # position of the axe
-                            bbox_transform=ax.transData,  # use data coordinate (not axe coordinate)
-                            axes_class=WindroseAxes,  # specify the class of the axe
-                            )
+                        width=1,  # size in inches
+                        height=1,  # size in inches
+                        loc='center',  # center bbox at given position
+                        bbox_to_anchor=(lon, lat),  # position of the axe
+                        bbox_transform=ax.transData,  # use data coordinate (not axe coordinate)
+                        axes_class=WindroseAxes,  # specify the class of the axe
+                        )
     wrax_cham.bar(ds_unst_ii['mwd'].values, ds_unst_ii['swh'].values)
     wrax_cham.patch.set_alpha(0.5)
     wrax_cham.tick_params(labelleft=False, labelbottom=False)
-
-    ax.plot(lon, lat, markersize=5, marker='o', color='red')
-
-fig.show()
-
-# %%
