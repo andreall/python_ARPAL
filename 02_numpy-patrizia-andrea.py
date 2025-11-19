@@ -683,16 +683,16 @@ a[:-1]
 
 # %%
 a[1:] - a[:-1]
-
+plot(a)
 # %% [markdown]
 # #### 2nd Derivative
 #     
 # A finite-difference estimate of the 2nd derivative is given by the following equation (ignoring $\Delta x$):
 # 
-# \begin{equation*}
-# f''(x) = 2
-# f_i - f_{i+1} - f_{i-1}
-# \end{equation*}
+ \begin{equation*}
+   f''(x) = 2
+   f_i - f_{i+1} - f_{i-1}
+\end{equation*}
 # 
 # Let's write some vectorized code to calculate this finite difference for `a`, using slices.  Analyze the code below, and compare the result to the values you would expect to see from the 2nd derivative of `a`.
 
