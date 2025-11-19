@@ -1,7 +1,7 @@
 # %%
 import numpy as np
-# prova Luca
-# Commento Dario
+# prova Marco
+# Commento Marco
 
 # %%
 a = np.array([10, 20.1, 30, 40])
@@ -10,7 +10,7 @@ for n in range(5):
     b.append(n)
 c = np.array(b)
 c
-# laura prova
+# Marco prova
 
 # %% [markdown]
 # Numpy arrays have several attributes that give useful information about the array:
