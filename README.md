@@ -92,3 +92,10 @@ TO RUN/DEBUG .py:
 - Normal Debug
         1. You need to put a "Red Dot" on where you want the code to stop
         2. Click the "cucaracha/play" icon on the left toolbar
+
+## Corso di formazione per l’ottimizzazione e la gestione di modelli idrodinamici procedure per l’analisi automatizzata di dati di qualità delle acque marine - Nov. 2025
+### ARPAL - Novembre 2025
+
+Use of Git/Github and VSCode for the optimization of the hydrodynamics modelling framwerk
+
+  
