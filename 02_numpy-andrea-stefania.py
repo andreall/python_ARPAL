@@ -1,7 +1,3 @@
-# dispetto di Marco - Stefania
-
-
-
 # %%
 import numpy as np
 
