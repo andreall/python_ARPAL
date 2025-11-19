@@ -699,3 +699,4 @@ a[1:] - a[:-1]
 # Let's write some vectorized code to calculate this finite difference for `a`, using slices.  Analyze the code below, and compare the result to the values you would expect to see from the 2nd derivative of `a`.
 
 # Commento Cristina
+# prova GITHUB
